@@ -60,7 +60,7 @@ public class App {
     }
 
     private static void removerAluno(AlunoCRUD crud, Scanner leitor) {
-        System.out.print("Matrícula do aluno a ser removido: ");
+        System.out.print("A matrícula do aluno que vai ser removido: ");
         String matricula = leitor.nextLine();
         boolean removido = crud.removerAluno(matricula);
         if (removido) {
@@ -71,7 +71,7 @@ public class App {
     }
 
     private static void editarCurso(AlunoCRUD crud, Scanner leitor) {
-        System.out.print("Matrícula do aluno a ser editado: ");
+        System.out.print("A matrícula do aluno que vai ser editado: ");
         String matricula = leitor.nextLine();
 
         System.out.print("Novo curso: ");
@@ -100,7 +100,7 @@ public class App {
         try (BufferedReader reader = new BufferedReader(new FileReader("informacoesAluno.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("|");
+                String[] parts = line.split("\\|");
                 if (parts.length == 3) {
                     Aluno aluno = new Aluno(parts[0], parts[1], parts[2]);
                     crud.adicionarAluno(aluno);
@@ -115,7 +115,7 @@ public class App {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("informacoesAluno.txt"))) {
             ArrayList<Aluno> listaAlunos = crud.listarAlunos();
             for (Aluno aluno : listaAlunos) {
-                writer.write(aluno.getNome() + "|" + aluno.getCurso() + "|" + aluno.getMatricula());
+                writer.write(aluno.getNome() + "/" + aluno.getCurso() + "/" + aluno.getMatricula());
                 writer.newLine();
             }
         } catch (IOException e) {
